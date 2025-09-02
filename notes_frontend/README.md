@@ -31,14 +31,31 @@ Open http://localhost:3000 to view the app.
 
 ## Static Export
 
-The app is configured for static export with a client-driven page (`dynamic = "force-dynamic"`) to ensure localStorage-backed APIs are only used in the browser.
+The app is configured for static export (`next.config.ts` sets `output: "export"`).
+All browser-only APIs (localStorage, window, crypto) are guarded and used only
+from client components, so the app can be fully pre-rendered and exported.
+
+Build a static export:
+
+```bash
+# Build and export to the out/ directory
+npm run build
+# or using the alias script
+npm run export
+```
+
+The generated static site will be in `out/` (can be served by any static host).
 
 ## Mock API
 
 The app uses a localStorage-backed service to simulate HTTP calls:
 - `listNotes()`, `createNote()`, `updateNote()`, `deleteNote()`, `getNote()`
 
-To integrate a real backend later, replace the implementations in `src/lib/api.ts` with `fetch()` calls to your API.
+These functions are invoked from client components only and are SSR-safe due to
+explicit `typeof window` guards.
+
+To integrate a real backend later, replace the implementations in `src/lib/api.ts`
+with `fetch()` calls to your API.
 
 ## Notes
 

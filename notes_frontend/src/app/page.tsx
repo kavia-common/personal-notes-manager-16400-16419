@@ -11,7 +11,11 @@ import {
   type Note,
 } from "@/lib/api";
 
-export const dynamic = "force-dynamic";
+/**
+ * Static export compatibility:
+ * This is a client component. All browser APIs are guarded inside lib/api.ts.
+ * Removing dynamic='force-dynamic' allows Next.js static export to succeed.
+ */
 
 export default function Home() {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -33,6 +37,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    // Runs only in the browser after hydration
     refresh();
   }, []);
 

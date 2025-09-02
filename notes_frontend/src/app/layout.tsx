@@ -13,8 +13,12 @@ export const viewport: Viewport = {
   themeColor: "#1976d2",
 };
 
-export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
+/**
+ * Important for static export:
+ * - Remove dynamic="force-dynamic" and similar directives which prevent static export.
+ * - The mock API uses localStorage and is only invoked from client components.
+ * - The layout remains a server component rendering static shell markup.
+ */
 
 export default function RootLayout({
   children,

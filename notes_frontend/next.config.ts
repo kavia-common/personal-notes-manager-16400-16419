@@ -1,15 +1,17 @@
 import type { NextConfig } from "next";
 
+/**
+ * Static Export:
+ * - output: "export" makes `next build` emit a static site in the `out/` directory.
+ * - trailingSlash ensures correct static routing for nested paths on static hosts.
+ * - Avoid dynamic rendering flags in pages/layouts to keep export viable.
+ */
 const nextConfig: NextConfig = {
-  // We generate a fully static site
   output: "export",
-  // Ensure client-side navigation works with static export
   trailingSlash: true,
-  // App Router is already used by default in src/app
   experimental: {
     optimizePackageImports: [],
   },
-  // Prevent tracing issues in CI for static export
   outputFileTracingIncludes: {
     "/": [],
   },
